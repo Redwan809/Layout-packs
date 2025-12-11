@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Animated Grid Layout</title>
+    <style>
+        /* CSS কোড শুরু */
+        :root {
+            --icon-color: #ffffff;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: #1a1a1a;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            width: 95vw;
+            height: 95vh;
+            max-width: 1000px; /* একটি সর্বোচ্চ প্রস্থ নির্ধারণ করা হলো */
+            max-height: 800px; /* একটি সর্বোচ্চ উচ্চতা নির্ধারণ করা হলো */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .grid-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .grid-item svg {
+            width: 70px;
+            height: 70px;
+            fill: var(--icon-color);
+            z-index: 10;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
+            transition: transform 0.4s ease;
+        }
+        
+        /* --- প্রতিটি কার্ডের জন্য সম্পূর্ণ ভিন্ন স্টাইল এবং অ্যানিমেশন --- */
+
+        /* কার্ড ১: ডাইনামিক লিকুইড গ্রেডিয়েন্ট */
+        #card-1 {
+            background: radial-gradient(circle, #ff8a00, #e52e71);
+            animation: liquid-gradient 15s ease infinite;
+            background-size: 400% 400%;
+        }
+        @keyframes liquid-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* কার্ড ২: প্যারালাক্স থ্রিডি টিল্ট */
+        #card-2 {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            transform-style: preserve-3d; /* 3D ইফেক্টের জন্য */
+        }
+        #card-2 svg {
+            transform: translateZ(50px); /* আইকনটিকে কার্ড থেকে উপরে ভাসানো হলো */
+        }
+
+        /* কার্ড ৩: ডিজিটাল গ্লিচ ইফেক্ট */
+        #card-3 {
+            background-color: #111;
+        }
+        #card-3::before, #card-3::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #card-3:hover::before {
+            animation: glitch-top 0.3s linear infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+            opacity: 1;
+        }
+        #card-3:hover::after {
+            animation: glitch-bottom 0.3s linear infinite;
+            clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+            opacity: 1;
+        }
+        @keyframes glitch-top {
+            2%, 64% { transform: translate(2px, -2px); }
+            4%, 60% { transform: translate(-2px, 2px); }
+        }
+        @keyframes glitch-bottom {
+            2%, 64% { transform: translate(-2px, 0); }
+            4%, 60% { transform: translate(2px, 0); }
+        }
+        
+        /* কার্ড ৪: অরোরা (নর্দার্ন লাইটস) */
+        #card-4 {
+            background-color: #000;
+        }
+        #card-4::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 200%;
+            top: -50%;
+            left: -25%;
+            background: linear-gradient(130deg, transparent, #00ffc3, #007bff, transparent);
+            animation: aurora 8s linear infinite;
+        }
+        @keyframes aurora {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="grid-container">
+        <!-- প্রতিটি কার্ডে একটি করে আইডি দেওয়া হয়েছে -->
+        <div id="card-1" class="grid-item">
+            <svg xmlns="http://www.w.org/2000/svg" viewBox="0 0 24 24"><path d="M10,4A2,2,0,0,0,8,6V8H6A2,2,0,0,0,4,10V12H6V20A2,2,0,0,0,8,22H16A2,2,0,0,0,18,20V12H20V10A2,2,0,0,0,18,8H16V6A2,2,0,0,0,14,4H10M13,11L14.4,14L12,16L13.2,12.5L11,11H13Z" /></svg>
+        </div>
+        <div id="card-2" class="grid-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" /></svg>
+        </div>
+        <div id="card-3" class="grid-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A4,4,0,0,1,16,12A4,4,0,0,1,12,16A4,4,0,0,1,8,12A4,4,0,0,1,12,8M12,10A2,2,0,0,0,10,12A2,2,0,0,0,12,14A2,2,0,0,0,14,12A2,2,0,0,0,12,10M10,22C9.75,22,9.5,21.9,9.3,21.7L4.3,16.7C4.1,16.5,4,16.25,4,16V8C4,7.75,4.1,7.5,4.3,7.3L9.3,2.3C9.5,2.1,9.75,2,10,2H14C14.25,2,14.5,2.1,14.7,2.3L19.7,7.3C19.9,7.5,20,7.75,20,8V16C20,16.25,19.9,16.5,19.7,16.7L14.7,21.7C14.5,21.9,14.25,22,14,22H10Z" /></svg>
+        </div>
+        <div id="card-4" class="grid-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14,20A2,2,0,0,1,12,22A2,2,0,0,1,10,20H14M12,2A1,1,0,0,1,13,3V4.08C15.84,4.57,18,7.02,18,10V16L21,19H3L6,16V10C6,7.02,8.16,4.57,11,4.08V3A1,1,0,0,1,12,2Z" /></svg>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript কোড শুরু 
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // কার্ড ২: প্যারালাক্স থ্রিডি টিল্ট ইফেক্ট
+            const tiltCard = document.getElementById('card-2');
+            
+            tiltCard.addEventListener('mousemove', (e) => {
+                const rect = tiltCard.getBoundingClientRect();
+                const x = e.clientX - rect.left; // কার্ডের ভেতরে x পজিশন
+                const y = e.clientY - rect.top;  // কার্ডের ভেতরে y পজিশন
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -15; // সর্বোচ্চ 15 ডিগ্রী ঘুরবে
+                const rotateY = ((x - centerX) / centerX) * 15;  // সর্বোচ্চ 15 ডিগ্রী ঘুরবে
+
+                tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            tiltCard.addEventListener('mouseleave', () => {
+                // মাউস সরিয়ে নিলে কার্ডটি আগের অবস্থায় ফিরে আসবে
+                tiltCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
+
+</body>
+</html>
